@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "building-shift",
+  "version": "${version}",
+
+  "name": "Building Shift",
+  "description": "Cancels Interaction with Functional Blocks without holding Shift Key! Use Commands or Binded Key to toggle, G by default",
+  "authors": [
+    "HiWord9"
+  ],
+  "contact": {
+    "homepage": "https://modrinth.com/mod/building-shift",
+    "sources": "https://github.com/HiWord9/building-shift"
+  },
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.curseforge": "https://www.curseforge.com/minecraft/mc-mods/building-shift",
+        "modmenu.modrinth": "https://modrinth.com/mod/building-shift",
+        "modmenu.donate": "https://paypal.me/hiword9"
+      }
+    }
+  },
+
+  "license": "MIT",
+  "icon": "assets/building-shift/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "com.HiWord9.BuildingShift.BuildingShift"
+    ]
+  },
+  "mixins": [
+    "building-shift.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.14.21",
+    "fabric-api": "*",
+    "minecraft": ">=1.20",
+    "java": ">=17"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}

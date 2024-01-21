@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.HiWord9.BuildingShift.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "client": [
+    "InGameHudMixin",
+    "MinecraftClientMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "refmap": "building-shift-refmap.json"
+}
