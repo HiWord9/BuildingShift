@@ -1,7 +1,6 @@
 package com.HiWord9.BuildingShift.mixin;
 
 import com.HiWord9.BuildingShift.BuildingShift;
-import net.minecraft.MinecraftVersion;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.MultifaceGrowthBlock;
 import net.minecraft.block.SlabBlock;
@@ -27,9 +26,9 @@ public class MinecraftClientMixin {
 			index = 2
 	)
 	private BlockHitResult injected(BlockHitResult hitResult) {
-		if (!BuildingShift.enabled) return hitResult;
-
 		MinecraftClient client = MinecraftClient.getInstance();
+		if (!BuildingShift.enabled || client.isInSingleplayer()) return hitResult;
+
 		if (client.world == null || client.player == null) return hitResult;
 
 		if (client.options.attackKey.isPressed()) return hitResult;
