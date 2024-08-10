@@ -13,6 +13,7 @@ public class PlayerEntityMixin {
     private boolean injected(PlayerEntity instance) {
         MinecraftClient client = MinecraftClient.getInstance();
         if (!client.isInSingleplayer() || client.player == null) return instance.isSneaking();
-        return (BuildingShift.enabled && instance.getGameProfile() == client.player.getGameProfile());
+        boolean preCancel = BuildingShift.enabled && instance.getGameProfile().equals(client.player.getGameProfile());
+        return preCancel || instance.isSneaking();
     }
 }
