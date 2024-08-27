@@ -40,11 +40,25 @@ public class BuildingShift implements ModInitializer {
         return enabledPlayers.contains(player);
     }
 
-    public static void toggleFor(PlayerEntity player) {
+    /**
+     * Enables BuildingShift for given player if disabled, or disables if enabled.
+     *
+     * @return true if enabled, false if disabled
+     */
+    public static boolean toggleFor(PlayerEntity player) {
         if (isEnabledFor(player)) {
             disableFor(player);
-        } else {
-            enableFor(player);
+            return false;
         }
+        enableFor(player);
+        return true;
+    }
+
+    public static void overlayStatus(PlayerEntity player) {
+        overlayStatus(player, isEnabledFor(player));
+    }
+
+    public static void overlayStatus(PlayerEntity player, boolean enabled) {
+        player.sendMessage(enabled ? Constants.MESSAGE_ON : Constants.MESSAGE_OFF, true);
     }
 }

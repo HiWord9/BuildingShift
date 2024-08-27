@@ -1,5 +1,6 @@
 package com.HiWord9.BuildingShift.server;
 
+import com.HiWord9.BuildingShift.Constants;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
@@ -9,6 +10,8 @@ import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 
 public class BuildingShiftCommand {
 
@@ -52,7 +55,8 @@ public class BuildingShiftCommand {
     }
 
     public static int onToggle(ServerCommandSource context, ServerPlayerEntity player) {
-        BuildingShift.toggleFor(player);
+        boolean enabled = BuildingShift.toggleFor(player);
+        BuildingShift.overlayStatus(player, enabled);
         return Command.SINGLE_SUCCESS;
     }
 
@@ -62,6 +66,7 @@ public class BuildingShiftCommand {
 
     public static int onOn(ServerCommandSource context, ServerPlayerEntity player) {
         BuildingShift.enableFor(player);
+        BuildingShift.overlayStatus(player, true);
         return Command.SINGLE_SUCCESS;
     }
 
@@ -71,6 +76,7 @@ public class BuildingShiftCommand {
 
     public static int onOff(ServerCommandSource context, ServerPlayerEntity player) {
         BuildingShift.disableFor(player);
+        BuildingShift.overlayStatus(player, false);
         return Command.SINGLE_SUCCESS;
     }
 }
