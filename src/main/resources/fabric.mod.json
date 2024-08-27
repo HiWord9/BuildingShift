@@ -17,12 +17,13 @@
       "links": {
         "modmenu.curseforge": "https://www.curseforge.com/minecraft/mc-mods/building-shift",
         "modmenu.modrinth": "https://modrinth.com/mod/building-shift",
-        "modmenu.donate": "https://paypal.me/hiword9"
+        "modmenu.donate": "https://paypal.me/hiword9",
+        "License": "https://license.durt.team/1.0"
       }
     }
   },
 
-  "license": "MIT",
+  "license": "Team Durt License 1.0",
   "icon": "assets/building-shift/icon.png",
 
   "environment": "*",
