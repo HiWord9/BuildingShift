@@ -1,6 +1,7 @@
-package com.HiWord9.BuildingShift;
+package com.HiWord9.BuildingShift.client;
 
-import com.HiWord9.BuildingShift.event.KeyInputHandler;
+import com.HiWord9.BuildingShift.Constants;
+import com.HiWord9.BuildingShift.client.event.KeyInputHandler;
 import com.mojang.brigadier.CommandDispatcher;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
@@ -10,13 +11,8 @@ import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-public class BuildingShift implements ClientModInitializer {
-	public static final String MOD_ID = "building-shift";
-	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-
+public class BuildingShiftClient implements ClientModInitializer {
 	public static boolean enabled = false;
 
 	public static final String KEY_ON = "building-shift.turned.on";
@@ -24,17 +20,17 @@ public class BuildingShift implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
-		LOGGER.info("Building Shift author likes coka-cola zero btw");
+		Constants.LOGGER.info("Building Shift author likes coka-cola zero btw");
 		KeyInputHandler.register();
-		ClientCommandRegistrationCallback.EVENT.register(BuildingShift::registerCommand);
+		ClientCommandRegistrationCallback.EVENT.register(BuildingShiftClient::registerCommand);
 	}
 
 	public static void registerCommand(CommandDispatcher<FabricClientCommandSource> dispatcher, CommandRegistryAccess registryAccess) {
-		BuildingShiftCommand.register(dispatcher);
+		BuildingShiftClientCommand.register(dispatcher);
 	}
 
 	public static void setEnabled(boolean enabled) {
-		BuildingShift.enabled = enabled;
+		BuildingShiftClient.enabled = enabled;
 	}
 
 	public static void toggle(MinecraftClient client) {
@@ -42,14 +38,14 @@ public class BuildingShift implements ClientModInitializer {
 	}
 
 	public static void turn(boolean on, MinecraftClient client) {
-		BuildingShift.setEnabled(on);
+		BuildingShiftClient.setEnabled(on);
 		overlayStatus(client);
 	}
 
 	public static void overlayStatus(MinecraftClient client) {
 		if (client.player == null) return;
 		Text text;
-		if (BuildingShift.enabled) {
+		if (BuildingShiftClient.enabled) {
 			text = Text.translatable(KEY_ON).fillStyle(Style.EMPTY.withColor(Formatting.GOLD));
 		} else {
 			text = Text.translatable(KEY_OFF).fillStyle(Style.EMPTY.withColor(Formatting.GRAY));

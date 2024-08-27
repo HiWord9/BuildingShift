@@ -7,10 +7,6 @@
     "com/HiWord9/BuildingShift/mixin/MinecraftClientMixin": {
       "Lnet/minecraft/client/network/ClientPlayerInteractionManager;interactBlock(Lnet/minecraft/client/network/ClientPlayerEntity;Lnet/minecraft/util/Hand;Lnet/minecraft/util/hit/BlockHitResult;)Lnet/minecraft/util/ActionResult;": "Lnet/minecraft/class_636;method_2896(Lnet/minecraft/class_746;Lnet/minecraft/class_1268;Lnet/minecraft/class_3965;)Lnet/minecraft/class_1269;",
       "doItemUse": "Lnet/minecraft/class_310;method_1583()V"
-    },
-    "com/HiWord9/BuildingShift/mixin/PlayerEntityMixin": {
-      "Lnet/minecraft/entity/player/PlayerEntity;isSneaking()Z": "Lnet/minecraft/class_1657;method_5715()Z",
-      "shouldCancelInteraction": "Lnet/minecraft/class_1657;method_21823()Z"
     }
   },
   "data": {
@@ -22,10 +18,6 @@
       "com/HiWord9/BuildingShift/mixin/MinecraftClientMixin": {
         "Lnet/minecraft/client/network/ClientPlayerInteractionManager;interactBlock(Lnet/minecraft/client/network/ClientPlayerEntity;Lnet/minecraft/util/Hand;Lnet/minecraft/util/hit/BlockHitResult;)Lnet/minecraft/util/ActionResult;": "Lnet/minecraft/class_636;method_2896(Lnet/minecraft/class_746;Lnet/minecraft/class_1268;Lnet/minecraft/class_3965;)Lnet/minecraft/class_1269;",
         "doItemUse": "Lnet/minecraft/class_310;method_1583()V"
-      },
-      "com/HiWord9/BuildingShift/mixin/PlayerEntityMixin": {
-        "Lnet/minecraft/entity/player/PlayerEntity;isSneaking()Z": "Lnet/minecraft/class_1657;method_5715()Z",
-        "shouldCancelInteraction": "Lnet/minecraft/class_1657;method_21823()Z"
       }
     }
   }

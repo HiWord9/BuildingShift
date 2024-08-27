@@ -1,6 +1,6 @@
-package com.HiWord9.BuildingShift.event;
+package com.HiWord9.BuildingShift.client.event;
 
-import com.HiWord9.BuildingShift.BuildingShift;
+import com.HiWord9.BuildingShift.client.BuildingShiftClient;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.option.KeyBinding;
@@ -16,7 +16,7 @@ public class KeyInputHandler {
 	public static void registerKeyInput() {
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
 			if (toggleKey.wasPressed()) {
-				BuildingShift.toggle(client);
+				BuildingShiftClient.toggle(client);
 			}
 		});
 	}

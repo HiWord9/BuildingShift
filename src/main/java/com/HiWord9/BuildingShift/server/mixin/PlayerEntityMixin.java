@@ -1,6 +1,6 @@
-package com.HiWord9.BuildingShift.mixin;
+package com.HiWord9.BuildingShift.server.mixin;
 
-import com.HiWord9.BuildingShift.BuildingShift;
+import com.HiWord9.BuildingShift.client.BuildingShiftClient;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
@@ -13,7 +13,7 @@ public class PlayerEntityMixin {
     private boolean injected(PlayerEntity instance) {
         MinecraftClient client = MinecraftClient.getInstance();
         if (!client.isInSingleplayer() || client.player == null) return instance.isSneaking();
-        boolean preCancel = BuildingShift.enabled && instance.getGameProfile().equals(client.player.getGameProfile());
+        boolean preCancel = BuildingShiftClient.enabled && instance.getGameProfile().equals(client.player.getGameProfile());
         return preCancel || instance.isSneaking();
     }
 }

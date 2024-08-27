@@ -29,12 +29,16 @@
 
   "environment": "*",
   "entrypoints": {
+    "main": [
+      "com.HiWord9.BuildingShift.server.BuildingShift"
+    ],
     "client": [
-      "com.HiWord9.BuildingShift.BuildingShift"
+      "com.HiWord9.BuildingShift.client.BuildingShiftClient"
     ]
   },
   "mixins": [
-    "building-shift.mixins.json"
+    "client/building-shift-client.mixins.json",
+    "server/building-shift-server.mixins.json"
   ],
 
   "depends": {

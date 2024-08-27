@@ -1,6 +1,7 @@
-package com.HiWord9.BuildingShift.mixin;
+package com.HiWord9.BuildingShift.client.mixin;
 
-import com.HiWord9.BuildingShift.BuildingShift;
+import com.HiWord9.BuildingShift.Constants;
+import com.HiWord9.BuildingShift.client.BuildingShiftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.render.RenderTickCounter;
@@ -15,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class InGameHudMixin {
 
     @Unique
-    Identifier INDICATOR = Identifier.of(BuildingShift.MOD_ID, "textures/indicator.png");
+    Identifier INDICATOR = Identifier.of(Constants.MOD_ID, "textures/indicator.png");
 
     @Inject(
             method = "renderCrosshair",
@@ -26,7 +27,7 @@ public class InGameHudMixin {
             )
     )
     private void injected(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
-        if (!BuildingShift.enabled) return;
+        if (!BuildingShiftClient.enabled) return;
         final int scaledWidth = context.getScaledWindowWidth();
         final int scaledHeight = context.getScaledWindowHeight();
         context.drawTexture(

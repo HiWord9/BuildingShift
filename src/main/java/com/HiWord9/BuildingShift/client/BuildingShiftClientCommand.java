@@ -1,4 +1,4 @@
-package com.HiWord9.BuildingShift;
+package com.HiWord9.BuildingShift.client;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
@@ -6,7 +6,7 @@ import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 
 import static net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.literal;
 
-public class BuildingShiftCommand {
+public class BuildingShiftClientCommand {
     public static void register(CommandDispatcher<FabricClientCommandSource> dispatcher) {
         dispatcher.register(literal("buildingshift")
                 .then(literal("toggle")
@@ -18,17 +18,18 @@ public class BuildingShiftCommand {
     }
 
     public static int onToggle(FabricClientCommandSource context) {
-        BuildingShift.toggle(context.getClient());
+        System.out.println("onToggleClient");
+        BuildingShiftClient.toggle(context.getClient());
         return Command.SINGLE_SUCCESS;
     }
 
     public static int onOn(FabricClientCommandSource context) {
-        BuildingShift.turn(true, context.getClient());
+        BuildingShiftClient.turn(true, context.getClient());
         return Command.SINGLE_SUCCESS;
     }
 
     public static int onOff(FabricClientCommandSource context) {
-        BuildingShift.turn(false, context.getClient());
+        BuildingShiftClient.turn(false, context.getClient());
         return Command.SINGLE_SUCCESS;
     }
 }
