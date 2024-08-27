@@ -18,7 +18,6 @@ public class BuildingShiftClientCommand {
     }
 
     public static int onToggle(FabricClientCommandSource context) {
-        System.out.println("onToggleClient");
         BuildingShiftClient.toggle(context.getClient());
         return Command.SINGLE_SUCCESS;
     }

@@ -52,8 +52,7 @@ public class BuildingShiftCommand {
     }
 
     public static int onToggle(ServerCommandSource context, ServerPlayerEntity player) {
-//        BuildingShiftClient.toggle(context.getClient());
-        System.out.println("onToggle");
+        BuildingShift.toggleFor(player);
         return Command.SINGLE_SUCCESS;
     }
 
@@ -62,8 +61,7 @@ public class BuildingShiftCommand {
     }
 
     public static int onOn(ServerCommandSource context, ServerPlayerEntity player) {
-//        BuildingShiftClient.turn(true, context.getClient());
-        System.out.println("onOn");
+        BuildingShift.enableFor(player);
         return Command.SINGLE_SUCCESS;
     }
 
@@ -72,8 +70,7 @@ public class BuildingShiftCommand {
     }
 
     public static int onOff(ServerCommandSource context, ServerPlayerEntity player) {
-//        BuildingShiftClient.turn(false, context.getClient());
-        System.out.println("onOff");
+        BuildingShift.disableFor(player);
         return Command.SINGLE_SUCCESS;
     }
 }
