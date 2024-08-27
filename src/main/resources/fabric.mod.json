@@ -10,7 +10,8 @@
   ],
   "contact": {
     "homepage": "https://modrinth.com/mod/building-shift",
-    "sources": "https://github.com/HiWord9/building-shift"
+    "sources": "https://github.com/HiWord9/BuildingShift",
+    "issues": "https://github.com/HiWord9/BuildingShift/issues"
   },
   "custom": {
     "modmenu": {
