@@ -37,8 +37,8 @@
     ]
   },
   "mixins": [
-    "client/building-shift-client.mixins.json",
-    "server/building-shift-server.mixins.json"
+    "building-shift-client.mixins.json",
+    "building-shift-server.mixins.json"
   ],
 
   "depends": {

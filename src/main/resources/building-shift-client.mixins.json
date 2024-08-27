@@ -10,5 +10,5 @@
   "injectors": {
     "defaultRequire": 1
   },
-  "refmap": "building-shift-client-refmap.json"
+  "refmap": "building-shift-refmap.json"
 }
