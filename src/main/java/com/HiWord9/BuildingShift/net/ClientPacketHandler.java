@@ -1,5 +1,6 @@
 package com.HiWord9.BuildingShift.net;
 
+import com.HiWord9.BuildingShift.Constants;
 import com.HiWord9.BuildingShift.client.BuildingShiftClient;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -27,6 +28,7 @@ public class ClientPacketHandler {
     }
 
     private static void receivedInstalled(InstalledPayload payload, ClientPlayNetworking.Context context) {
+        Constants.LOGGER.info("Building Shift is installed on current server! Enabling special integration");
         BuildingShiftClient.installedOnServer = true;
     }
 }
