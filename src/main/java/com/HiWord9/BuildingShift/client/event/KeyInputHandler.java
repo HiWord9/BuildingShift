@@ -16,7 +16,7 @@ public class KeyInputHandler {
 	public static void registerKeyInput() {
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
 			if (toggleKey.wasPressed()) {
-				BuildingShiftClient.toggle(client);
+				BuildingShiftClient.toggle();
 			}
 		});
 	}

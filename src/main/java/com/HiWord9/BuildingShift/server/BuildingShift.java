@@ -1,7 +1,6 @@
 package com.HiWord9.BuildingShift.server;
 
 import com.HiWord9.BuildingShift.Constants;
-import com.mojang.authlib.GameProfile;
 import com.mojang.brigadier.CommandDispatcher;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
@@ -9,16 +8,21 @@ import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 
 public class BuildingShift implements ModInitializer {
     private static final HashSet<PlayerEntity> enabledPlayers = new HashSet<>();
 
+    // can't translate on server
+    public static final Text MESSAGE_ON = Text.of("Building Shift Turned On!").copy().formatted(Formatting.GOLD);
+    public static final Text MESSAGE_OFF = Text.of("Building Shift Turned Off!").copy().formatted(Formatting.GRAY);
+
     @Override
     public void onInitialize() {
-        Constants.LOGGER.info("Building Shift server-side initializing");
+        Constants.LOGGER.info("Building Shift server-side initialization");
         CommandRegistrationCallback.EVENT.register(BuildingShift::registerCommand);
     }
 
@@ -59,6 +63,6 @@ public class BuildingShift implements ModInitializer {
     }
 
     public static void overlayStatus(PlayerEntity player, boolean enabled) {
-        player.sendMessage(enabled ? Constants.MESSAGE_ON : Constants.MESSAGE_OFF, true);
+        player.sendMessage(enabled ? MESSAGE_ON : MESSAGE_OFF, true);
     }
 }

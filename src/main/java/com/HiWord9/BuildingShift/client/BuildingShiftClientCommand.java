@@ -9,26 +9,27 @@ import static net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.lit
 public class BuildingShiftClientCommand {
     public static void register(CommandDispatcher<FabricClientCommandSource> dispatcher) {
         dispatcher.register(literal("buildingshift")
+//                .requires(fabricClientCommandSource -> fabricClientCommandSource.getClient().isInSingleplayer())
                 .then(literal("toggle")
-                        .executes(context -> onToggle(context.getSource())))
+                        .executes(context -> onToggle()))
                 .then(literal("on")
-                        .executes(context -> onOn(context.getSource())))
+                        .executes(context -> onOn()))
                 .then(literal("off")
-                        .executes(context -> onOff(context.getSource()))));
+                        .executes(context -> onOff())));
     }
 
-    public static int onToggle(FabricClientCommandSource context) {
-        BuildingShiftClient.toggle(context.getClient());
+    public static int onToggle() {
+        BuildingShiftClient.toggle();
         return Command.SINGLE_SUCCESS;
     }
 
-    public static int onOn(FabricClientCommandSource context) {
-        BuildingShiftClient.turn(true, context.getClient());
+    public static int onOn() {
+        BuildingShiftClient.turn(true);
         return Command.SINGLE_SUCCESS;
     }
 
-    public static int onOff(FabricClientCommandSource context) {
-        BuildingShiftClient.turn(false, context.getClient());
+    public static int onOff() {
+        BuildingShiftClient.turn(false);
         return Command.SINGLE_SUCCESS;
     }
 }
