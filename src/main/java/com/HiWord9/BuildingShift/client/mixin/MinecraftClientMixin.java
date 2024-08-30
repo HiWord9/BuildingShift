@@ -26,6 +26,8 @@ public class MinecraftClientMixin {
 			index = 2
 	)
 	private BlockHitResult injected(BlockHitResult hitResult) {
+		if (BuildingShiftClient.installedOnServer) return hitResult;
+
 		MinecraftClient client = MinecraftClient.getInstance();
 		if (!BuildingShiftClient.enabled || client.isInSingleplayer()) return hitResult;
 

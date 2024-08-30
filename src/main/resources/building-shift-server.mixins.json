@@ -3,6 +3,9 @@
   "minVersion": "0.8",
   "package": "com.HiWord9.BuildingShift.server.mixin",
   "compatibilityLevel": "JAVA_17",
+  "client": [
+    "PlayerEntityMixin"
+  ],
   "server": [
     "PlayerEntityMixin"
   ],

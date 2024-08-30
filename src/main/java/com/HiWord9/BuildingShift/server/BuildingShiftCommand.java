@@ -1,6 +1,5 @@
 package com.HiWord9.BuildingShift.server;
 
-import com.HiWord9.BuildingShift.Constants;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
@@ -10,8 +9,6 @@ import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 
 public class BuildingShiftCommand {
 
@@ -39,6 +36,7 @@ public class BuildingShiftCommand {
                 .then(CommandManager
                         .literal("toggle")
                         .executes(context -> onToggle(context.getSource()))
+//                        .requires(source -> source.getPlayer() != null)
                         .then(withTarget(BuildingShiftCommand::onToggle)))
                 .then(CommandManager
                         .literal("on")

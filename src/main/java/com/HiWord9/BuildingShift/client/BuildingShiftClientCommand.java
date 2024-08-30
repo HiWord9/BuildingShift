@@ -9,7 +9,7 @@ import static net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.lit
 public class BuildingShiftClientCommand {
     public static void register(CommandDispatcher<FabricClientCommandSource> dispatcher) {
         dispatcher.register(literal("buildingshift")
-//                .requires(fabricClientCommandSource -> fabricClientCommandSource.getClient().isInSingleplayer())
+                .requires(source -> !BuildingShiftClient.installedOnServer)
                 .then(literal("toggle")
                         .executes(context -> onToggle()))
                 .then(literal("on")

@@ -1,13 +1,21 @@
 package com.HiWord9.BuildingShift.server;
 
 import com.HiWord9.BuildingShift.Constants;
+import com.HiWord9.BuildingShift.net.InstalledPayload;
+import com.HiWord9.BuildingShift.net.PacketHandler;
+import com.HiWord9.BuildingShift.net.TurnedPayload;
 import com.mojang.brigadier.CommandDispatcher;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.networking.v1.S2CPlayChannelEvents;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
@@ -23,7 +31,16 @@ public class BuildingShift implements ModInitializer {
     @Override
     public void onInitialize() {
         Constants.LOGGER.info("Building Shift server-side initialization");
+
         CommandRegistrationCallback.EVENT.register(BuildingShift::registerCommand);
+        S2CPlayChannelEvents.REGISTER.register((handler, sender, server, channels) -> {
+            ServerPlayNetworking.send(handler.player, new InstalledPayload());
+        });
+        S2CPlayChannelEvents.UNREGISTER.register((handler, sender, server, channels) -> {
+            disableFor(handler.player);
+        });
+
+        PacketHandler.init();
     }
 
     public static void registerCommand(CommandDispatcher<ServerCommandSource> serverCommandSourceCommandDispatcher,
@@ -34,10 +51,12 @@ public class BuildingShift implements ModInitializer {
 
     public static void enableFor(PlayerEntity player) {
         enabledPlayers.add(player);
+        ServerPlayNetworking.send((ServerPlayerEntity) player, new TurnedPayload(true));
     }
 
     public static void disableFor(PlayerEntity player) {
         enabledPlayers.remove(player);
+        ServerPlayNetworking.send((ServerPlayerEntity) player, new TurnedPayload(false));
     }
 
     public static boolean isEnabledFor(PlayerEntity player) {
