@@ -5,6 +5,7 @@ import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.command.EntitySelector;
 import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.server.command.CommandManager;
@@ -52,44 +53,58 @@ public class BuildingShiftCommand {
     }
 
     public static int onToggle(ServerCommandSource context) {
-        return onToggle(context, context.getPlayer());
+        return onToggle(context, null);
     }
 
     public static int onToggle(ServerCommandSource context, ServerPlayerEntity player) {
-        boolean enabled = BuildingShift.toggleFor(player);
-        BuildingShift.overlayStatus(player, enabled);
+        ServerPlayerEntity target = player == null ? context.getPlayer() : player;
+        boolean enabled = BuildingShift.toggleFor(target);
+        if (target != null) {
+            BuildingShift.overlayStatus(target, enabled);
+        }
         logResult(context, player, enabled);
         return Command.SINGLE_SUCCESS;
     }
 
     public static int onOn(ServerCommandSource context) {
-        return onOn(context, context.getPlayer());
+        return onOn(context, null);
     }
 
     public static int onOn(ServerCommandSource context, ServerPlayerEntity player) {
-        BuildingShift.enableFor(player);
-        BuildingShift.overlayStatus(player, true);
+        ServerPlayerEntity target = player == null ? context.getPlayer() : player;
+        BuildingShift.enableFor(target);
+        if (target != null) {
+            BuildingShift.overlayStatus(target, true);
+        }
         logResult(context, player, true);
         return Command.SINGLE_SUCCESS;
     }
 
     public static int onOff(ServerCommandSource context) {
-        return onOff(context, context.getPlayer());
+        return onOff(context, null);
     }
 
     public static int onOff(ServerCommandSource context, ServerPlayerEntity player) {
-        BuildingShift.disableFor(player);
-        BuildingShift.overlayStatus(player, false);
+        ServerPlayerEntity target = player == null ? context.getPlayer() : player;
+        BuildingShift.disableFor(target);
+        if (target != null) {
+            BuildingShift.overlayStatus(target, false);
+        }
         logResult(context, player, false);
         return Command.SINGLE_SUCCESS;
     }
 
     public static void logResult(ServerCommandSource context, ServerPlayerEntity player, boolean enabled) {
+        ServerPlayerEntity target = player == null ? context.getPlayer() : player;
         String message = String.format("Building Shift Turned %s", enabled ? "on" : "off");
-        if (player != context.getPlayer()) {
+        if (player != null) {
             message = message + String.format(" for %s", player.getName().getString());
         }
+        Constants.LOGGER.debug(
+                "Building Shift {} for {}",
+                enabled ? "Enabled" : "Disabled",
+                target == null ? null : target.getName().getString()
+        );
         context.sendMessage(Text.of(message).copy().formatted(enabled ? Formatting.GOLD : Formatting.GRAY));
-        Constants.LOGGER.info("Building Shift {} for {}", enabled ? "Enabled" : "Disabled", player.getName().getString());
     }
 }
