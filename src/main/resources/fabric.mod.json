@@ -1,53 +1,50 @@
 {
   "schemaVersion": 1,
-  "id": "building-shift",
+  "id": "${mod_id}",
   "version": "${version}",
 
-  "name": "Building Shift",
-  "description": "Cancels Interaction with Functional Blocks without holding Shift Key! Use Commands or Binded Key to toggle, G by default",
+  "name": "${mod_name}",
+  "description": "${mod_description}",
   "authors": [
-    "HiWord9"
+    "${mod_author}"
   ],
   "contact": {
-    "homepage": "https://modrinth.com/mod/building-shift",
-    "sources": "https://github.com/HiWord9/BuildingShift",
-    "issues": "https://github.com/HiWord9/BuildingShift/issues"
+    "homepage": "${mod_homepage_modrinth}",
+    "sources": "${mod_sources}",
+    "issues": "${mod_issue_tracker}"
   },
   "custom": {
     "modmenu": {
       "links": {
-        "modmenu.curseforge": "https://www.curseforge.com/minecraft/mc-mods/building-shift",
-        "modmenu.modrinth": "https://modrinth.com/mod/building-shift",
-        "modmenu.donate": "https://paypal.me/hiword9",
-        "License": "https://license.durt.team/1.0"
+        "modmenu.curseforge": "${mod_homepage_curseforge}",
+        "modmenu.modrinth": "${mod_homepage_modrinth}",
+        "modmenu.donate": "${mod_donate_paypal}",
+        "License": "${mod_license_link}/${mod_license_version}"
       }
     }
   },
 
-  "license": "Team Durt License 1.0",
-  "icon": "assets/building-shift/icon.png",
+  "license": "${mod_license} ${mod_license_version}",
+  "icon": "assets/${mod_id}/icon.png",
 
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.HiWord9.BuildingShift.server.BuildingShift"
+      "${mod_main_dir}.${mod_main_class}"
     ],
     "client": [
-      "com.HiWord9.BuildingShift.client.BuildingShiftClient"
+      "${mod_main_dir}.${mod_client_class}"
     ]
   },
   "mixins": [
-    "building-shift-client.mixins.json",
-    "building-shift-server.mixins.json"
+    "${mod_id}-client.mixins.json",
+    "${mod_id}-server.mixins.json"
   ],
 
   "depends": {
-    "fabricloader": ">=0.14.21",
+    "fabricloader": "${loader_version_range}",
     "fabric-api": "*",
-    "minecraft": ">=1.20",
-    "java": ">=17"
-  },
-  "suggests": {
-    "another-mod": "*"
+    "minecraft": "${minecraft_version_range}",
+    "java": ">=${java_version}"
   }
 }
