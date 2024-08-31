@@ -15,18 +15,16 @@ import net.minecraft.util.Formatting;
 
 public class BuildingShiftCommand {
 
-    static RequiredArgumentBuilder<ServerCommandSource, EntitySelector> target = CommandManager
-            .argument("target", EntityArgumentType.player())
-            .requires(source -> source.hasPermissionLevel(2));
-
-
     public static RequiredArgumentBuilder<ServerCommandSource, EntitySelector> withTarget(PlayerTargetExecutable executable) {
-        return target.executes(
-                context -> executable.run(
-                        context.getSource(),
-                        EntityArgumentType.getPlayer(context, "target")
-                )
-        );
+        return CommandManager
+                .argument("target", EntityArgumentType.player())
+                .requires(source -> source.hasPermissionLevel(2))
+                .executes(
+                        context -> executable.run(
+                                context.getSource(),
+                                EntityArgumentType.getPlayer(context, "target")
+                        )
+                );
     }
 
     public interface PlayerTargetExecutable {
@@ -39,7 +37,6 @@ public class BuildingShiftCommand {
                 .then(CommandManager
                         .literal("toggle")
                         .executes(context -> onToggle(context.getSource()))
-//                        .requires(source -> source.getPlayer() != null)
                         .then(withTarget(BuildingShiftCommand::onToggle)))
                 .then(CommandManager
                         .literal("on")
@@ -48,10 +45,12 @@ public class BuildingShiftCommand {
                 .then(CommandManager
                         .literal("off")
                         .executes(context -> onOff(context.getSource()))
-                        .then(withTarget(BuildingShiftCommand::onOff))));
+                        .then(withTarget(BuildingShiftCommand::onOff)))
+        );
     }
 
-    public static int onToggle(ServerCommandSource context) {
+    public static int onToggle(ServerCommandSource context) throws CommandSyntaxException {
+        context.getPlayerOrThrow();
         return onToggle(context, null);
     }
 
@@ -62,7 +61,8 @@ public class BuildingShiftCommand {
         return Command.SINGLE_SUCCESS;
     }
 
-    public static int onOn(ServerCommandSource context) {
+    public static int onOn(ServerCommandSource context) throws CommandSyntaxException {
+        context.getPlayerOrThrow();
         return onOn(context, null);
     }
 
@@ -73,7 +73,8 @@ public class BuildingShiftCommand {
         return Command.SINGLE_SUCCESS;
     }
 
-    public static int onOff(ServerCommandSource context) {
+    public static int onOff(ServerCommandSource context) throws CommandSyntaxException {
+        context.getPlayerOrThrow();
         return onOff(context, null);
     }
 
@@ -86,7 +87,7 @@ public class BuildingShiftCommand {
 
     public static void outputResult(ServerCommandSource context, ServerPlayerEntity target, boolean enabled) {
         ServerPlayerEntity player = target == null ? context.getPlayer() : target;
-        Constants.LOGGER.debug(
+        Constants.LOGGER.info(
                 "Building Shift {} for {}",
                 enabled ? "Enabled" : "Disabled",
                 player == null ? null : player.getName().getString()
