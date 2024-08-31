@@ -7,7 +7,7 @@ import com.HiWord9.BuildingShift.networking.TurnedPayload;
 import com.mojang.brigadier.CommandDispatcher;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
-import net.fabricmc.fabric.api.networking.v1.S2CPlayChannelEvents;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.entity.player.PlayerEntity;
@@ -32,10 +32,11 @@ public class BuildingShift implements ModInitializer {
         Constants.LOGGER.info("Building Shift server-side initialization");
 
         CommandRegistrationCallback.EVENT.register(BuildingShift::registerCommand);
-        S2CPlayChannelEvents.REGISTER.register((handler, sender, server, channels) -> {
-            ServerPlayNetworking.send(handler.player, new InstalledPayload());
+
+        ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
+            sender.sendPacket(new InstalledPayload());
         });
-        S2CPlayChannelEvents.UNREGISTER.register((handler, sender, server, channels) -> {
+        ServerPlayConnectionEvents.DISCONNECT.register((handler, sender) -> {
             disableFor(handler.player);
             unmarkAsHasMod(handler.player);
         });
