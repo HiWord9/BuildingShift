@@ -5,7 +5,6 @@ import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.command.EntitySelector;
 import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.server.command.CommandManager;
@@ -31,7 +30,7 @@ public class BuildingShiftCommand {
     }
 
     public interface PlayerTargetExecutable {
-        int run(ServerCommandSource context, ServerPlayerEntity player) throws CommandSyntaxException;
+        int run(ServerCommandSource context, ServerPlayerEntity target) throws CommandSyntaxException;
     }
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
@@ -56,13 +55,10 @@ public class BuildingShiftCommand {
         return onToggle(context, null);
     }
 
-    public static int onToggle(ServerCommandSource context, ServerPlayerEntity player) {
-        ServerPlayerEntity target = player == null ? context.getPlayer() : player;
-        boolean enabled = BuildingShift.toggleFor(target);
-        if (target != null) {
-            BuildingShift.overlayStatus(target, enabled);
-        }
-        logResult(context, player, enabled);
+    public static int onToggle(ServerCommandSource context, ServerPlayerEntity target) {
+        ServerPlayerEntity player = target == null ? context.getPlayer() : target;
+        boolean enabled = BuildingShift.toggleFor(player);
+        outputResult(context, target, enabled);
         return Command.SINGLE_SUCCESS;
     }
 
@@ -70,13 +66,10 @@ public class BuildingShiftCommand {
         return onOn(context, null);
     }
 
-    public static int onOn(ServerCommandSource context, ServerPlayerEntity player) {
-        ServerPlayerEntity target = player == null ? context.getPlayer() : player;
-        BuildingShift.enableFor(target);
-        if (target != null) {
-            BuildingShift.overlayStatus(target, true);
-        }
-        logResult(context, player, true);
+    public static int onOn(ServerCommandSource context, ServerPlayerEntity target) {
+        ServerPlayerEntity player = target == null ? context.getPlayer() : target;
+        BuildingShift.enableFor(player);
+        outputResult(context, target, true);
         return Command.SINGLE_SUCCESS;
     }
 
@@ -84,27 +77,30 @@ public class BuildingShiftCommand {
         return onOff(context, null);
     }
 
-    public static int onOff(ServerCommandSource context, ServerPlayerEntity player) {
-        ServerPlayerEntity target = player == null ? context.getPlayer() : player;
-        BuildingShift.disableFor(target);
-        if (target != null) {
-            BuildingShift.overlayStatus(target, false);
-        }
-        logResult(context, player, false);
+    public static int onOff(ServerCommandSource context, ServerPlayerEntity target) {
+        ServerPlayerEntity player = target == null ? context.getPlayer() : target;
+        BuildingShift.disableFor(player);
+        outputResult(context, target, false);
         return Command.SINGLE_SUCCESS;
     }
 
-    public static void logResult(ServerCommandSource context, ServerPlayerEntity player, boolean enabled) {
-        ServerPlayerEntity target = player == null ? context.getPlayer() : player;
-        String message = String.format("Building Shift Turned %s", enabled ? "on" : "off");
-        if (player != null) {
-            message = message + String.format(" for %s", player.getName().getString());
-        }
+    public static void outputResult(ServerCommandSource context, ServerPlayerEntity target, boolean enabled) {
+        ServerPlayerEntity player = target == null ? context.getPlayer() : target;
         Constants.LOGGER.debug(
                 "Building Shift {} for {}",
                 enabled ? "Enabled" : "Disabled",
-                target == null ? null : target.getName().getString()
+                player == null ? null : player.getName().getString()
         );
+        if (BuildingShift.hasMod(player)) return;
+
+        if (player != null) {
+            BuildingShift.overlayStatus(player, enabled);
+        }
+
+        String message = String.format("Building Shift Turned %s", enabled ? "on" : "off");
+        if (target != null) {
+            message = message + String.format(" for %s", target.getName().getString());
+        }
         context.sendMessage(Text.of(message).copy().formatted(enabled ? Formatting.GOLD : Formatting.GRAY));
     }
 }

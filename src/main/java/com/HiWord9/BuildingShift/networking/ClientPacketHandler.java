@@ -1,4 +1,4 @@
-package com.HiWord9.BuildingShift.net;
+package com.HiWord9.BuildingShift.networking;
 
 import com.HiWord9.BuildingShift.Constants;
 import com.HiWord9.BuildingShift.client.BuildingShiftClient;
@@ -29,6 +29,7 @@ public class ClientPacketHandler {
 
     private static void receivedInstalled(InstalledPayload payload, ClientPlayNetworking.Context context) {
         Constants.LOGGER.info("Building Shift is installed on current server! Enabling special integration");
+        ClientPlayNetworking.send(new InstalledPayload());
         BuildingShiftClient.installedOnServer = true;
     }
 }

@@ -1,4 +1,4 @@
-package com.HiWord9.BuildingShift.net;
+package com.HiWord9.BuildingShift.networking;
 
 import com.HiWord9.BuildingShift.Constants;
 import net.minecraft.network.PacketByteBuf;

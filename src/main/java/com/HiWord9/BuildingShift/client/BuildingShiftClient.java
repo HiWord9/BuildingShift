@@ -2,8 +2,8 @@ package com.HiWord9.BuildingShift.client;
 
 import com.HiWord9.BuildingShift.Constants;
 import com.HiWord9.BuildingShift.client.event.KeyInputHandler;
-import com.HiWord9.BuildingShift.net.ClientPacketHandler;
-import com.HiWord9.BuildingShift.net.TurnedPayload;
+import com.HiWord9.BuildingShift.networking.ClientPacketHandler;
+import com.HiWord9.BuildingShift.networking.TurnedPayload;
 import com.HiWord9.BuildingShift.server.BuildingShift;
 import com.mojang.brigadier.CommandDispatcher;
 import net.fabricmc.api.ClientModInitializer;

@@ -1,15 +1,13 @@
 package com.HiWord9.BuildingShift.server;
 
 import com.HiWord9.BuildingShift.Constants;
-import com.HiWord9.BuildingShift.net.InstalledPayload;
-import com.HiWord9.BuildingShift.net.PacketHandler;
-import com.HiWord9.BuildingShift.net.TurnedPayload;
+import com.HiWord9.BuildingShift.networking.InstalledPayload;
+import com.HiWord9.BuildingShift.networking.PacketHandler;
+import com.HiWord9.BuildingShift.networking.TurnedPayload;
 import com.mojang.brigadier.CommandDispatcher;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.networking.v1.S2CPlayChannelEvents;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.entity.player.PlayerEntity;
@@ -23,6 +21,7 @@ import java.util.HashSet;
 
 public class BuildingShift implements ModInitializer {
     private static final HashSet<PlayerEntity> enabledPlayers = new HashSet<>();
+    private static final HashSet<PlayerEntity> playersWithMod = new HashSet<>();
 
     // can't translate on server
     public static final Text MESSAGE_ON = Text.of("Building Shift Turned On!").copy().formatted(Formatting.GOLD);
@@ -38,6 +37,7 @@ public class BuildingShift implements ModInitializer {
         });
         S2CPlayChannelEvents.UNREGISTER.register((handler, sender, server, channels) -> {
             disableFor(handler.player);
+            unmarkAsHasMod(handler.player);
         });
 
         PacketHandler.init();
@@ -83,5 +83,17 @@ public class BuildingShift implements ModInitializer {
 
     public static void overlayStatus(PlayerEntity player, boolean enabled) {
         player.sendMessage(enabled ? MESSAGE_ON : MESSAGE_OFF, true);
+    }
+
+    public static void markAsHasMod(PlayerEntity player) {
+        playersWithMod.add(player);
+    }
+
+    public static void unmarkAsHasMod(PlayerEntity player) {
+        playersWithMod.remove(player);
+    }
+
+    public static boolean hasMod(PlayerEntity player) {
+        return playersWithMod.contains(player);
     }
 }
