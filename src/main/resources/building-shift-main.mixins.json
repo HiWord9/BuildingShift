@@ -1,7 +1,7 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "${mod_main_dir}.server.mixin",
+  "package": "${mod_main_dir}.main.mixin",
   "compatibilityLevel": "JAVA_17",
   "client": [
     "PlayerEntityMixin"

@@ -57,7 +57,7 @@ processResources {
 			"loader_version_range"            : loader_version_range,
 			"java_version"                    : java_version
 	]
-	filesMatching(['fabric.mod.json', mod_id + '-client.mixins.json', mod_id + '-server.mixins.json']) {
+	filesMatching(['fabric.mod.json', mod_id + '-client.mixins.json', mod_id + '-main.mixins.json']) {
 		expand expandProps
 	}
 	inputs.properties(expandProps)

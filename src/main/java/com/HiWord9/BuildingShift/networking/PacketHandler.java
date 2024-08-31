@@ -1,7 +1,7 @@
 package com.HiWord9.BuildingShift.networking;
 
 import com.HiWord9.BuildingShift.Constants;
-import com.HiWord9.BuildingShift.server.BuildingShift;
+import com.HiWord9.BuildingShift.main.BuildingShift;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.player.PlayerEntity;

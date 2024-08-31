@@ -38,7 +38,7 @@
   },
   "mixins": [
     "${mod_id}-client.mixins.json",
-    "${mod_id}-server.mixins.json"
+    "${mod_id}-main.mixins.json"
   ],
 
   "depends": {

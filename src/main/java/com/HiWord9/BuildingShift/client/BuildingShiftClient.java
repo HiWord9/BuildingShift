@@ -4,7 +4,7 @@ import com.HiWord9.BuildingShift.Constants;
 import com.HiWord9.BuildingShift.client.event.KeyInputHandler;
 import com.HiWord9.BuildingShift.networking.ClientPacketHandler;
 import com.HiWord9.BuildingShift.networking.TurnedPayload;
-import com.HiWord9.BuildingShift.server.BuildingShift;
+import com.HiWord9.BuildingShift.main.BuildingShift;
 import com.mojang.brigadier.CommandDispatcher;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;

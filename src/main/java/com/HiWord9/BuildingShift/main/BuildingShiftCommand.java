@@ -1,4 +1,4 @@
-package com.HiWord9.BuildingShift.server;
+package com.HiWord9.BuildingShift.main;
 
 import com.HiWord9.BuildingShift.Constants;
 import com.mojang.brigadier.Command;

@@ -1,7 +1,7 @@
-package com.HiWord9.BuildingShift.server.mixin;
+package com.HiWord9.BuildingShift.main.mixin;
 
 import com.HiWord9.BuildingShift.client.BuildingShiftClient;
-import com.HiWord9.BuildingShift.server.BuildingShift;
+import com.HiWord9.BuildingShift.main.BuildingShift;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
